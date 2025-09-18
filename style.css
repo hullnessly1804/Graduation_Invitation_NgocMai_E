@@ -1,0 +1,147 @@
+/* Định dạng toàn bộ trang web */
+body {
+  margin: 0; /* Xóa lề mặc định */
+  padding: 0; /* Xóa đệm mặc định */
+  display: flex; /* Sử dụng Flexbox để căn giữa nội dung */
+  justify-content: center; /* Căn giữa theo chiều ngang */
+  align-items: center; /* Căn giữa theo chiều dọc */
+  height: 100vh; /* Chiều cao bằng toàn bộ viewport */
+  background: linear-gradient(135deg, #f2b6dd, #a0e3f2); /* Nền gradient xanh dương */
+  font-family: "Roboto", sans-serif; /* Sử dụng font Roboto */
+  position: relative; /* Để định vị các hình vẽ trang trí */
+  overflow: hidden; /* Ẩn các phần tử confetti vượt ra ngoài */
+}
+
+/* Hiệu ứng confetti cho nền ban đầu */
+body::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><circle cx="10" cy="10" r="2" fill="yellow"/><circle cx="15" cy="5" r="2" fill="red"/><circle cx="5" cy="15" r="2" fill="white"/></svg>') repeat;
+  opacity: 0.3; /* Độ mờ để không che khuất nội dung */
+  animation: confetti 10s linear infinite; /* Hiệu ứng di chuyển confetti */
+}
+@keyframes rotateCap {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Định dạng container chứa nội dung chính */
+.container {
+  text-align: center; /* Căn giữa văn bản và nội dung */
+  z-index: 10; /* Đặt trên lớp confetti */
+}
+
+/* Định dạng ảnh tốt nghiệp ban đầu */
+.grad-img {
+  width: 350px; /* Chiều rộng ảnh */
+  height: auto; /* Chiều cao tự động theo tỷ lệ */
+  margin-bottom: 20px; /* Khoảng cách dưới ảnh */
+  object-fit: cover; /* Ảnh lấp đầy khung */
+  border-radius: 10px; /* Bo góc ảnh */
+  transition: all 1s ease; /* Hiệu ứng morph mượt mà */
+}
+
+
+/* Định dạng tiêu đề */
+.title {
+  font-size: 2.25em; /* Kích thước chữ */
+  color: #fff; /* Màu chữ trắng */
+  margin-bottom: 25px; /* Khoảng cách dưới tiêu đề */
+}
+
+/* Định dạng nhóm nút */
+.buttons {
+  display: flex; /* Sử dụng Flexbox để xếp nút ngang */
+  gap: 20px; /* Khoảng cách giữa các nút */
+  justify-content: center; /* Căn giữa các nút */
+}
+
+/* Định dạng chung cho các nút */
+.btn {
+  padding: 12px 24px; /* Đệm trong nút */
+  font-size: 1.1em; /* Kích thước chữ ban đầu */
+  cursor: pointer; /* Con trỏ chuột khi hover */
+  border: none; /* Xóa viền mặc định */
+  border-radius: 5px; /* Bo góc nút */
+  transition: all 0.3s ease; /* Hiệu ứng chuyển đổi mượt mà */
+}
+
+/* Định dạng nút "Có" */
+.btn--yes {
+  background-color: #28a745; /* Màu nền xanh lá */
+  color: white; /* Màu chữ trắng */
+}
+
+.btn--yes:hover {
+  background-color: #218838; /* Màu xanh đậm hơn khi hover */
+}
+
+/* Định dạng nút "Không" */
+.btn--no {
+  background-color: #dc3545; /* Màu nền đỏ */
+  color: white; /* Màu chữ trắng */
+}
+
+.btn--no:hover {
+  background-color: #c82333; /* Màu đỏ đậm hơn khi hover */
+}
+
+/* Định dạng ảnh toàn màn hình khi nhấn "Có" */
+.fullscreen-img {
+  position: fixed; /* Đặt ảnh cố định trên màn hình */
+  top: 0; /* Căn sát đỉnh */
+  left: 0; /* Căn sát trái */
+  width: 100vw; /* Chiều rộng toàn viewport */
+  height: 100vh; /* Chiều cao toàn viewport */
+  object-fit: contain; /* Hiển thị toàn bộ ảnh, không cắt */
+  background-color: #a0e3f2; /* Nền đen để ảnh nổi bật */
+  z-index: 1000; /* Đặt trên các phần tử khác */
+  opacity: 0; /* Ẩn ban đầu cho hiệu ứng fade-in */
+  animation: fadeIn 1.2s forwards; /* Hiệu ứng từ từ hiện ra */
+}
+
+/* Hiệu ứng confetti cho ảnh toàn màn hình */
+.fullscreen-img::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><circle cx="10" cy="10" r="2" fill="yellow"/><circle cx="15" cy="5" r="2" fill="red"/><circle cx="5" cy="15" r="2" fill="white"/></svg>') repeat;
+  opacity: 0.3; /* Độ mờ để không che khuất ảnh */
+  animation: confetti 10s linear infinite; /* Hiệu ứng di chuyển confetti */
+}
+
+/* Hiệu ứng fade-in */
+@keyframes fadeIn {
+  to { opacity: 1; } /* Từ mờ đến rõ */
+}
+
+/* Hiệu ứng di chuyển confetti */
+@keyframes confetti {
+  0% { background-position: 0 0; }
+  100% { background-position: 100px 100px; } /* Di chuyển nền SVG */
+}
+
+/* Định dạng thông báo thay thế alert */
+.notification {
+  position: fixed; /* Đặt cố định trên màn hình */
+  top: 20px; /* Cách đỉnh 20px */
+  left: 50%; /* Căn giữa ngang */
+  transform: translateX(-50%); /* Dịch chuyển để căn giữa chính xác */
+  background-color: rgba(0, 0, 0, 0.8); /* Nền đen mờ */
+  color: white; /* Chữ trắng */
+  padding: 15px 30px; /* Đệm */
+  border-radius: 5px; /* Bo góc */
+  z-index: 1000; /* Đặt trên các phần tử khác */
+  opacity: 0; /* Ẩn ban đầu */
+  transition: opacity 0.75s ease; /* Hiệu ứng mờ dần */
+}
+.notification.show {
+  opacity: 1; /* Hiển thị khi có class "show" */
+}
